@@ -22,14 +22,18 @@ const app = (0, express_1.default)();
 const port = process.env.PORT;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-mongoose_1.default.connect(process.env.TASK_DB_URI);
+mongoose_1.default.connect("mongodb+srv://testuser:CzuthqtqGFIWwgSF@cluster0.vd33s.mongodb.net/task_manager?retryWrites=true&w=majority");
 app.get("/", (req, res) => {
-    res.send("Express + TypeScript Server");
+    const username = req.query.username;
+    User_1.default.findOne({ username }, (err, result) => {
+        err ? res.json(err) : res.json(result);
+    });
+    //res.send("Express + TypeScript Server");
 });
 app.post("/new", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.body;
     const newUser = new User_1.default(user);
-    User_1.default.findOneAndUpdate(user, user, { upsert: true, new: true, setDefaultOnInsert: true }, (error, result) => {
+    yield User_1.default.findOneAndUpdate(user, user, { upsert: true, new: true, setDefaultOnInsert: true }, (error, result) => {
         if (error) {
             console.log("error");
         }
@@ -38,8 +42,13 @@ app.post("/new", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json(user);
 }));
 app.post("/add", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const username = req.body.username;
-    //await User.findOne({username:username})
+    const username = req.query.username;
+    yield User_1.default.findOne({ username: username }).then((doc) => {
+        console.log(doc);
+        doc === null || doc === void 0 ? void 0 : doc.tasks.push(req.body);
+        doc === null || doc === void 0 ? void 0 : doc.save();
+        res.json(doc === null || doc === void 0 ? void 0 : doc.tasks.at(-1));
+    });
     console.log(username);
 }));
 app.listen(port, () => {

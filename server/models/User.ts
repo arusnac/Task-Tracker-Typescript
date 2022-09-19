@@ -1,6 +1,6 @@
 import { Schema, model, connect } from "mongoose";
 
-interface Task {
+export interface Task {
   title: string;
   content: string;
   date: string;

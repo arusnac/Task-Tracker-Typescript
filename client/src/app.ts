@@ -24,24 +24,49 @@ const setDeadline = document.querySelector("#setDeadline") as HTMLInputElement;
 const setTime = document.querySelector("#setTime") as HTMLInputElement;
 const modal = document.querySelector(".overlay") as HTMLElement;
 
-console.log(setDeadline);
+const BASE_URL = "http://localhost:8000";
+const username = "arusnac";
+
+async function getTasks() {
+  await Axios.get(BASE_URL + "/", {
+    params: {
+      username,
+    },
+  }).then((response) => {
+    const tasks = response.data.tasks;
+    console.log(response.data.tasks);
+    for (let i in tasks) {
+      createTask(
+        tasks[i].title,
+        tasks[i].content,
+        tasks[i].date,
+        tasks[i].time
+      );
+    }
+  });
+}
+
+getTasks();
 
 function addTask(e: Event) {
   e.preventDefault();
   const formData = new FormData(e.target as HTMLFormElement);
   const formProps = Object.fromEntries(formData);
   console.log(formProps);
-  createTask(
-    formProps["task-title"] as string,
-    formProps.task as string,
-    formProps.deadline as string,
-    formProps.time as string
-  );
+  const title = formProps["task-title"] as string;
+  const content = formProps.task as string;
+  const date = formProps.deadline as string;
+  const time = formProps.time as string;
+  createTask(title, content, date, time);
   modal.style.display = "none";
 
-  Axios.post("http://localhost:8000" + "/new", {
-    username: "arusnac",
-  });
+  Axios.post(
+    BASE_URL + "/add",
+    { title, content, date, time },
+    {
+      params: { username: "arusnac" },
+    }
+  );
 }
 
 function toggleDeadline() {
