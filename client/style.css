@@ -1,0 +1,147 @@
+body {
+  background-color: #fff;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.task-form-container {
+}
+
+.nav {
+  background-color: #1d3557;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+  margin-bottom: 20px;
+}
+
+footer {
+  background-color: #1d3557;
+  margin-top: auto;
+  width: 100%;
+}
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #1d3557;
+  padding: 10px;
+  padding-top: 10px;
+  border-radius: 5%;
+}
+
+.task-form label {
+  color: white;
+  font-weight: 600;
+}
+
+.task-form button {
+  background-color: #a8dadc;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.task-form button:hover {
+  background-color: #99c8c9;
+  cursor: pointer;
+}
+
+.hide-deadline {
+  display: none;
+}
+
+.task-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: #f1faee;
+  border-radius: 10%;
+}
+
+.task-container p {
+  padding: 0;
+  margin: 0;
+}
+
+.task-container h4 {
+  padding: 0;
+
+  margin: 5px 10px 5px 10px;
+  background-color: #a8dadc;
+}
+
+.task-content {
+  margin: 10px;
+}
+.task-title-container {
+  background-color: #a8dadc;
+}
+
+.task-datetime {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #a8dadc;
+}
+
+.task-datetime p {
+  margin: 5px 10px 5px 10px;
+}
+.tasks {
+  margin-top: 25px;
+  width: 350px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.close-button {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+.close-button button {
+  background-color: #e63946;
+}
+.close-button button:hover {
+  background-color: #ca333f;
+}
+
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none;
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.task-form-container {
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  width: 15%; /* Could be more or less, depending on screen size */
+}
+
+@media only screen and (max-width: 600px) {
+  .task-form-container {
+    width: 75%;
+  }
+}

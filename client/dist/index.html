@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TRACK!!</title>
+    <link rel="stylesheet" href="D:\Projects\ToDo\client\style.css" />
+  </head>
+  <body class="container">
+    <div class="nav">
+      <h1>Task Tracker</h1>
+    </div>
+    <button class="add-button">Add</button>
+    <div class="overlay">
+      <div class="task-form-container">
+        <form class="task-form">
+          <div class="close-button">
+            <button type="button" id="cancel">x</button>
+          </div>
+          <label>Task Title </label>
+          <input name="task-title" />
+          <label> Task </label>
+          <textarea name="task" rows="4" cols="50"></textarea>
+          <div>
+            <input type="checkbox" id="setDeadline" name="setDeadline" />
+            <label for="setDeadline">Set Deadline</label>
+          </div>
+          <div class="deadline-section hide-deadline">
+            <label id="deadlineLabel" for="start">Deadline:</label>
+            <input
+              type="date"
+              id="start"
+              name="deadline"
+              value=""
+              min="2022-01-01"
+              max="2024-12-31"
+            />
+            <input type="time" id="time" name="time" />
+          </div>
+          <button type="submit" class="formButton">Save</button>
+        </form>
+      </div>
+    </div>
+    <div class="tasks"></div>
+    <footer>COPYRIGHT 2022 ANDREW RUSNAC</footer>
+    <script>
+      var exports = {};
+    </script>
+    <script src="bundle.js"></script>
+  </body>
+</html>
