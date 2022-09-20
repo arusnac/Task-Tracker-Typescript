@@ -26,6 +26,9 @@ const modal = document.querySelector(".overlay") as HTMLElement;
 
 const BASE_URL = "http://localhost:8000";
 const username = "arusnac";
+let completeBtns: NodeListOf<Element>;
+let deleteBtns: NodeListOf<Element>;
+let taskElements: NodeListOf<Element>;
 
 async function getTasks() {
   await Axios.get(BASE_URL + "/", {
@@ -43,6 +46,12 @@ async function getTasks() {
         tasks[i].time
       );
     }
+    taskElements = document.querySelectorAll(".task-container");
+    console.log(taskElements);
+    completeBtns = document.querySelectorAll(".complete-button");
+    deleteBtns = document.querySelectorAll(".delete-button");
+    deleteTask();
+    completeTask();
   });
 }
 
@@ -52,7 +61,7 @@ function addTask(e: Event) {
   e.preventDefault();
   const formData = new FormData(e.target as HTMLFormElement);
   const formProps = Object.fromEntries(formData);
-  console.log(formProps);
+
   const title = formProps["task-title"] as string;
   const content = formProps.task as string;
   const date = formProps.deadline as string;
@@ -86,6 +95,29 @@ function toggleAddModal() {
   //   : taskFormContainer.classList.add("hide-deadline");
 }
 
+async function completeTask() {
+  for (let i in completeBtns) {
+    completeBtns[i].addEventListener("click", function () {
+      Axios.post(BASE_URL + "/delete", { username, index: i }).then(
+        (response) => {
+          taskElements[i].remove();
+        }
+      );
+    });
+  }
+}
+function deleteTask() {
+  for (let i in deleteBtns) {
+    deleteBtns[i].addEventListener("click", function () {
+      Axios.post(BASE_URL + "/delete", { username, index: i }).then(
+        (response) => {
+          taskElements[i].remove();
+        }
+      );
+    });
+  }
+}
+
 addBtn.addEventListener("click", toggleAddModal);
 taskForm?.addEventListener("submit", addTask);
 setDeadline.addEventListener("click", toggleDeadline);
@@ -93,8 +125,3 @@ setDeadline.addEventListener("click", toggleDeadline);
 cancelBtn.addEventListener("click", function () {
   modal.style.display = "none";
 });
-//formBtn.addEventListener("click", printMessage);
-createTask("TTTTTIIITLE", "CONNNNNTENT", "2/2/22", "05:50");
-// modal.addEventListener("click", function () {
-//   modal.style.display = "none";
-// });

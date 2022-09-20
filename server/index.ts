@@ -13,9 +13,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(
-  "mongodb+srv://testuser:CzuthqtqGFIWwgSF@cluster0.vd33s.mongodb.net/task_manager?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.TASK_DB_URI);
 
 app.get("/", (req: Request, res: Response) => {
   const username = req.query.username;
@@ -53,6 +51,18 @@ app.post("/add", async (req: Request, res: Response) => {
     res.json(doc?.tasks.at(-1));
   });
   console.log(username);
+});
+
+app.post("/delete", async (req: Request, res: Response) => {
+  const username = req.body.username;
+  const index = req.body.index;
+
+  await User.findOne({ username: username }).then((doc) => {
+    console.log(index + username);
+    doc?.tasks.splice(index, 1);
+    doc?.save();
+  });
+  res.json("success");
 });
 
 app.listen(port, () => {

@@ -67,7 +67,6 @@ footer {
   flex-direction: column;
   gap: 5px;
   background-color: #f1faee;
-  border-radius: 10%;
 }
 
 .task-container p {
@@ -87,6 +86,36 @@ footer {
 }
 .task-title-container {
   background-color: #a8dadc;
+}
+
+.action-area {
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.delete-button {
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: #e63946;
+}
+
+.delete-button:hover {
+  background-color: #ff5563;
+}
+
+.complete-button {
+  border-radius: 10px;
+  border: none;
+  color: white;
+
+  background-color: #409463;
+}
+
+.complete-button:hover {
+  background-color: #55c584;
 }
 
 .task-datetime {

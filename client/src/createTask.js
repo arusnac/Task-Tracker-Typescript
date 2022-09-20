@@ -9,6 +9,12 @@ function createTask(title, content, date, time) {
     const taskTime = createTaskElement("p", ["task-time"], `${time}`);
     const taskContent = createTaskElement("div", ["task-content"], `${content}`);
     const taskDateTime = createTaskElement("div", ["task-datetime"]);
+    const actionContainer = createTaskElement("div", ["action-area"]);
+    const completeButton = createTaskElement("button", ["complete-button"]);
+    const checkIcon = createTaskElement("i", ["fa-solid", "fa-check"]);
+    const cancelIcon = createTaskElement("i", ["fa-solid", "fa-trash"]);
+    // `<i class="fa-solid fa-check"></i>`
+    const deleteButton = createTaskElement("button", ["delete-button"]);
     const taskContainer = createTaskElement("div", ["task-container"]);
     taskDiv === null || taskDiv === void 0 ? void 0 : taskDiv.appendChild(taskContainer);
     taskContainer.appendChild(taskTitleContainer);
@@ -19,6 +25,11 @@ function createTask(title, content, date, time) {
         taskDateTime.appendChild(taskDate);
         taskDateTime.appendChild(taskTime);
     }
+    taskContainer.appendChild(actionContainer);
+    actionContainer.appendChild(completeButton);
+    completeButton.appendChild(checkIcon);
+    actionContainer.appendChild(deleteButton);
+    deleteButton.appendChild(cancelIcon);
 }
 exports.createTask = createTask;
 function createTaskElement(type, classes, text) {

@@ -11,6 +11,12 @@ export function createTask(
   const taskTime = createTaskElement("p", ["task-time"], `${time}`);
   const taskContent = createTaskElement("div", ["task-content"], `${content}`);
   const taskDateTime = createTaskElement("div", ["task-datetime"]);
+  const actionContainer = createTaskElement("div", ["action-area"]);
+  const completeButton = createTaskElement("button", ["complete-button"]);
+  const checkIcon = createTaskElement("i", ["fa-solid", "fa-check"]);
+  const cancelIcon = createTaskElement("i", ["fa-solid", "fa-trash"]);
+  // `<i class="fa-solid fa-check"></i>`
+  const deleteButton = createTaskElement("button", ["delete-button"]);
 
   const taskContainer = createTaskElement("div", ["task-container"]);
   taskDiv?.appendChild(taskContainer);
@@ -22,6 +28,11 @@ export function createTask(
     taskDateTime.appendChild(taskDate);
     taskDateTime.appendChild(taskTime);
   }
+  taskContainer.appendChild(actionContainer);
+  actionContainer.appendChild(completeButton);
+  completeButton.appendChild(checkIcon);
+  actionContainer.appendChild(deleteButton);
+  deleteButton.appendChild(cancelIcon);
 }
 
 function createTaskElement(

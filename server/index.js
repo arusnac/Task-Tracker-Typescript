@@ -22,7 +22,7 @@ const app = (0, express_1.default)();
 const port = process.env.PORT;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-mongoose_1.default.connect("mongodb+srv://testuser:CzuthqtqGFIWwgSF@cluster0.vd33s.mongodb.net/task_manager?retryWrites=true&w=majority");
+mongoose_1.default.connect(process.env.TASK_DB_URI);
 app.get("/", (req, res) => {
     const username = req.query.username;
     User_1.default.findOne({ username }, (err, result) => {
@@ -50,6 +50,16 @@ app.post("/add", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.json(doc === null || doc === void 0 ? void 0 : doc.tasks.at(-1));
     });
     console.log(username);
+}));
+app.post("/delete", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const username = req.body.username;
+    const index = req.body.index;
+    yield User_1.default.findOne({ username: username }).then((doc) => {
+        console.log(index + username);
+        doc === null || doc === void 0 ? void 0 : doc.tasks.splice(index, 1);
+        doc === null || doc === void 0 ? void 0 : doc.save();
+    });
+    res.json("success");
 }));
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
